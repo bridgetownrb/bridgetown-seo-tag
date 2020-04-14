@@ -2,7 +2,7 @@
 
 RSpec.describe Bridgetown::SeoTag do
   let(:site_config) { {} }
-  let(:metadata_config)    { { "title" => "site title" } }
+  let(:metadata_config) { { "title" => "site title" } }
   let(:page_meta) { {} }
   let(:page)      { make_page(page_meta) }
   let(:site)      { make_site(metadata_config, site_config) }

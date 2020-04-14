@@ -270,7 +270,7 @@ RSpec.describe Bridgetown::SeoTag do
         }
       end
       let(:page) { make_post(meta) }
-      let(:context)   { make_context(:page => page, :site => site) }
+      let(:context) { make_context(:page => page, :site => site) }
 
       it "outputs post meta" do
         expected = %r!<meta property="og:type" content="article" />!
@@ -457,12 +457,6 @@ RSpec.describe Bridgetown::SeoTag do
     context "with site.data.authors" do
       let(:author_data) { { "renshuki" => { "name" => "Site Data Author" } } }
       let(:data) { { "authors" => author_data } }
-      let(:site) do
-        site = make_site(metadata_config, site_config)
-        site.data = site.data.merge(data)
-        puts "SITE DATA", site.data.inspect
-        site
-      end
 
       context "with the author in site.data.authors" do
         it "outputs the author metadata" do

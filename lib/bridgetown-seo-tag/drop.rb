@@ -31,7 +31,10 @@ module Bridgetown
       end
 
       def site_title
-        @site_title ||= format_string(site.data.dig("site_metadata", "title") || site.data.dig("site_metadata", "name"))
+        @site_title ||= format_string(
+          site.data.dig("site_metadata", "title") ||
+          site.data.dig("site_metadata", "name")
+        )
       end
 
       def site_tagline

@@ -2,7 +2,7 @@
 
 RSpec.describe Bridgetown::SeoTag::ImageDrop do
   let(:site_config) { {} }
-  let(:metadata_config)    { { "title" => "site title" } }
+  let(:metadata_config) { { "title" => "site title" } }
   let(:image)     { nil }
   let(:page_meta) { { "image" => image } }
   let(:page)      { make_page(page_meta) }

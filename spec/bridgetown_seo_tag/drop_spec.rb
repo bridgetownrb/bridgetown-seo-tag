@@ -2,7 +2,7 @@
 
 RSpec.describe Bridgetown::SeoTag::Drop do
   let(:site_config) { {} }
-  let(:metadata_config)    { { "title" => "site title" } }
+  let(:metadata_config) { { "title" => "site title" } }
   let(:page_meta) { { "title" => "page title" } }
   let(:page)      { make_page(page_meta) }
   let(:site)      { make_site(metadata_config, site_config) }
@@ -396,12 +396,12 @@ RSpec.describe Bridgetown::SeoTag::Drop do
     context "with a relative site.logo" do
       let(:site_config) do
         {
-          "url"  => "http://example.com",
+          "url" => "http://example.com",
         }
       end
       let(:metadata_config) do
         {
-          "logo" => "image.png"
+          "logo" => "image.png",
         }
       end
 
