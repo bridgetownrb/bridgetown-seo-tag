@@ -3,8 +3,8 @@
 # Prevent bundler errors
 module Liquid; class Tag; end; end
 
-module Jekyll
+module Bridgetown
   class SeoTag < Liquid::Tag
-    VERSION = "2.6.1"
+    VERSION = "3.0.0"
   end
 end

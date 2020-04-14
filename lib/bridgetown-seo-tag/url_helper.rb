@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Jekyll
+module Bridgetown
   class SeoTag
     # Mixin to share common URL-related methods between class
     module UrlHelper

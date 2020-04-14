@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-RSpec.describe Jekyll::SeoTag do
-  let(:config)    { { "title" => "site title" } }
+RSpec.describe Bridgetown::SeoTag do
+  let(:site_config) { {} }
+  let(:metadata_config)    { { "title" => "site title" } }
   let(:page_meta) { {} }
   let(:page)      { make_page(page_meta) }
-  let(:site)      { make_site(config) }
+  let(:site)      { make_site(metadata_config, site_config) }
   let(:render_context) { make_context(:page => page, :site => site) }
   let(:text) { "" }
   let(:tag_name) { "github_edit_link" }
@@ -20,7 +21,7 @@ RSpec.describe Jekyll::SeoTag do
   end
 
   before do
-    Jekyll.logger.log_level = :error
+    Bridgetown.logger.log_level = :error
   end
 
   it "returns the template" do
@@ -29,24 +30,24 @@ RSpec.describe Jekyll::SeoTag do
 
   context "payload" do
     it "contains the drop" do
-      expect(payload["seo_tag"]).to be_a(Jekyll::SeoTag::Drop)
+      expect(payload["seo_tag"]).to be_a(Bridgetown::SeoTag::Drop)
     end
 
-    it "contains the Jekyll drop" do
-      expect(payload["jekyll"]).to be_a(Jekyll::Drops::JekyllDrop)
+    it "contains the Bridgetown drop" do
+      expect(payload["bridgetown"]).to be_a(Bridgetown::Drops::BridgetownDrop)
     end
 
     it "contains the page" do
-      expect(payload["page"]).to be_a(Jekyll::Page)
+      expect(payload["page"]).to be_a(Bridgetown::Page)
     end
 
     it "contains the site" do
-      expect(payload["site"]).to be_a(Jekyll::Drops::SiteDrop)
+      expect(payload["site"]).to be_a(Bridgetown::Drops::SiteDrop)
     end
   end
 
   it "renders" do
-    expected = "<!-- Begin Jekyll SEO tag v#{described_class::VERSION} -->"
+    expected = "<!-- Begin Bridgetown SEO tag v#{described_class::VERSION} -->"
     expect(rendered).to match(expected)
   end
 end

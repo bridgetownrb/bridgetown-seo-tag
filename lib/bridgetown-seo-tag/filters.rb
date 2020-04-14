@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Jekyll
+module Bridgetown
   class SeoTag
     class Filters
-      include Jekyll::Filters
+      include Bridgetown::Filters
       include Liquid::StandardFilters
 
       def initialize(context)

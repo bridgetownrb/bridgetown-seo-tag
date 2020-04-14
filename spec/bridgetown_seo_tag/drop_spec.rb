@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
-RSpec.describe Jekyll::SeoTag::Drop do
-  let(:config)    { { "title" => "site title" } }
+RSpec.describe Bridgetown::SeoTag::Drop do
+  let(:site_config) { {} }
+  let(:metadata_config)    { { "title" => "site title" } }
   let(:page_meta) { { "title" => "page title" } }
   let(:page)      { make_page(page_meta) }
-  let(:site)      { make_site(config) }
+  let(:site)      { make_site(metadata_config, site_config) }
   let(:context)   { make_context(:page => page, :site => site) }
   let(:text) { "" }
   subject { described_class.new(text, context) }
 
   before do
-    Jekyll.logger.log_level = :error
+    Bridgetown.logger.log_level = :error
   end
 
   # Drop includes liquid filters which expect arguments
@@ -22,7 +23,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
   end
 
   it "returns the version" do
-    expect(subject.version).to eql(Jekyll::SeoTag::VERSION)
+    expect(subject.version).to eql(Bridgetown::SeoTag::VERSION)
   end
 
   context "title?" do
@@ -44,7 +45,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       end
 
       context "with site.name" do
-        let(:config) { { "name" => "site title" } }
+        let(:metadata_config) { { "name" => "site title" } }
 
         it "knows the site title" do
           expect(subject.site_title).to eql("site title")
@@ -75,7 +76,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
 
       context "with a site description but no page title" do
         let(:page)  { make_page }
-        let(:config) do
+        let(:metadata_config) do
           { "title" => "site title", "description" => "site description" }
         end
 
@@ -86,7 +87,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
 
       context "with a site tagline but no page title" do
         let(:page)  { make_page }
-        let(:config) do
+        let(:metadata_config) do
           { "title" => "site title", "description" => "site description", "tagline" => "site tagline" }
         end
 
@@ -129,7 +130,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       end
 
       context "with an empty site title" do
-        let(:config) { { :title => "" } }
+        let(:metadata_config) { { :title => "" } }
 
         it "builds the title" do
           expect(subject.title).to eql("page title")
@@ -138,7 +139,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
 
       context "with an empty page and site title" do
         let(:page_meta) { { :title => "" } }
-        let(:config) { { :title => "" } }
+        let(:metadata_config) { { :title => "" } }
 
         it "returns nil" do
           expect(subject.title).to be_nil
@@ -162,7 +163,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       let(:page_meta) { { "permalink" => "/" } }
 
       context "with site.social.name" do
-        let(:config) { { "social" => { "name" => "social name" } } }
+        let(:metadata_config) { { "social" => { "name" => "social name" } } }
 
         it "uses site.social.name" do
           expect(subject.name).to eql("social name")
@@ -170,7 +171,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       end
 
       context "with site.social as an array" do
-        let(:config) { { "social" => %w(a b) } }
+        let(:metadata_config) { { "social" => %w(a b) } }
 
         it "uses site.social.name" do
           expect(subject.name).to be_nil
@@ -184,7 +185,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
 
     context "site description" do
       context "with a site description" do
-        let(:config) { { :description => "site description " } }
+        let(:metadata_config) { { "description" => "site description" } }
 
         it "returns the site discription" do
           expect(subject.site_description).to eql("site description")
@@ -218,7 +219,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       end
 
       context "with a site description" do
-        let(:config) { { "description"=> "site description" } }
+        let(:metadata_config) { { "description"=> "site description" } }
 
         it "uses the page description" do
           expect(subject.description).to eql("site description")
@@ -227,7 +228,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
 
       context "with no descriptions" do
         let(:page_meta) { { "description" => nil, "excerpt" => nil } }
-        let(:config) { { "description"=> nil } }
+        let(:metadata_config) { { "description"=> nil } }
 
         it "uses returns nil" do
           expect(subject.description).to be_nil
@@ -239,7 +240,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       let(:page_meta) { { "author" => "foo" } }
 
       it "returns an AuthorDrop" do
-        expect(subject.author).to be_a(Jekyll::SeoTag::AuthorDrop)
+        expect(subject.author).to be_a(Bridgetown::SeoTag::AuthorDrop)
       end
 
       it "passes page information" do
@@ -250,7 +251,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
       # before being passed to AuthorDrop
       context "with author as a front matter default" do
         let(:page_meta) { {} }
-        let(:config) do
+        let(:site_config) do
           {
             "defaults" => [
               {
@@ -269,7 +270,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
   end
 
   context "date published" do
-    let(:config) { { "timezone" => "America/New_York" } }
+    let(:site_config) { { "timezone" => "America/New_York" } }
     let(:page_meta) { { "date" => "2017-01-01" } }
 
     it "uses page.date" do
@@ -278,7 +279,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
   end
 
   context "date modified" do
-    let(:config) { { "timezone" => "America/New_York" } }
+    let(:site_config) { { "timezone" => "America/New_York" } }
 
     context "with seo.date_modified" do
       let(:page_meta) { { "seo" => { "date_modified" => "2017-01-01" } } }
@@ -361,7 +362,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "with site.social.links" do
-      let(:config) { { "social" => { "links"=> %w(a b) } } }
+      let(:metadata_config) { { "social" => { "links"=> %w(a b) } } }
 
       it "doesn't use site.social.links" do
         expect(subject.links).to be_nil
@@ -385,7 +386,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "with an absolute site.logo" do
-      let(:config) { { "logo" => "http://example.com/image.png" } }
+      let(:metadata_config) { { "logo" => "http://example.com/image.png" } }
 
       it "uses site.logo" do
         expect(subject.logo).to eql("http://example.com/image.png")
@@ -393,10 +394,14 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "with a relative site.logo" do
-      let(:config) do
+      let(:site_config) do
         {
-          "logo" => "image.png",
           "url"  => "http://example.com",
+        }
+      end
+      let(:metadata_config) do
+        {
+          "logo" => "image.png"
         }
       end
 
@@ -406,7 +411,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "with a uri-escaped logo" do
-      let(:config) { { "logo" => "some image.png" } }
+      let(:metadata_config) { { "logo" => "some image.png" } }
 
       it "escapes the logo" do
         expect(subject.logo).to eql("/some%20image.png")
@@ -419,7 +424,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
     let(:page_meta) { { "image" => image } }
 
     it "returns a Drop" do
-      expect(subject.image).to be_a(Jekyll::SeoTag::ImageDrop)
+      expect(subject.image).to be_a(Bridgetown::SeoTag::ImageDrop)
     end
 
     it "returns the image" do
@@ -437,7 +442,7 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "with site.lang" do
-      let(:config) { { "lang" => "en_GB" } }
+      let(:site_config) { { "lang" => "en_GB" } }
 
       it "uses site.lang" do
         expect(subject.page_lang).to eql("en_GB")
@@ -475,10 +480,10 @@ RSpec.describe Jekyll::SeoTag::Drop do
   end
 
   context "canonical url" do
-    let(:config) { { :url => "http://example.com" } }
+    let(:site_config) { { "url" => "http://example.com" } }
 
     context "when canonical url is specified for a page" do
-      let(:canonical_url) { "https://github.com/jekyll/jekyll-seo-tag/" }
+      let(:canonical_url) { "https://github.com/bridgetown/bridgetown-seo-tag/" }
       let(:page_meta) { { "title" => "page title", "canonical_url" => canonical_url } }
 
       it "uses specified canonical url" do
@@ -506,15 +511,11 @@ RSpec.describe Jekyll::SeoTag::Drop do
     end
 
     context "render custom pagination title" do
-      let(:config) { { "seo_paginator_message" => "%<current>s of %<total>s" } }
+      let(:site_config) { { "seo_paginator_message" => "%<current>s of %<total>s" } }
 
       it "renders the correct page number" do
         expect(subject.send(:page_number)).to eq("2 of 10")
       end
     end
-  end
-
-  it "exposes the JSON-LD drop" do
-    expect(subject.json_ld).to be_a(Jekyll::SeoTag::JSONLDDrop)
   end
 end

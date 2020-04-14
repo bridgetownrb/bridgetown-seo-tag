@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Jekyll
+module Bridgetown
   class SeoTag
-    class Drop < Jekyll::Drops::Drop
-      include Jekyll::SeoTag::UrlHelper
+    class Drop < Bridgetown::Drops::Drop
+      include Bridgetown::SeoTag::UrlHelper
 
       TITLE_SEPARATOR = " | "
       FORMAT_STRING_METHODS = [
@@ -19,7 +19,7 @@ module Jekyll
       end
 
       def version
-        Jekyll::SeoTag::VERSION
+        Bridgetown::SeoTag::VERSION
       end
 
       # Should the `<title>` tag be generated for this page?
@@ -31,15 +31,15 @@ module Jekyll
       end
 
       def site_title
-        @site_title ||= format_string(site["title"] || site["name"])
+        @site_title ||= format_string(site.data.dig("site_metadata", "title") || site.data.dig("site_metadata", "name"))
       end
 
       def site_tagline
-        @site_tagline ||= format_string site["tagline"]
+        @site_tagline ||= format_string site.data.dig("site_metadata", "tagline")
       end
 
       def site_description
-        @site_description ||= format_string site["description"]
+        @site_description ||= format_string site.data.dig("site_metadata", "description")
       end
 
       # Page title without site title or description appended
@@ -95,11 +95,6 @@ module Jekyll
         @author ||= AuthorDrop.new(:page => page, :site => site)
       end
 
-      # A drop representing the JSON-LD output
-      def json_ld
-        @json_ld ||= JSONLDDrop.new(self)
-      end
-
       # Returns a Drop representing the page's image
       # Returns nil if the image has no path, to preserve backwards compatability
       def image
@@ -150,12 +145,12 @@ module Jekyll
 
       def logo
         @logo ||= begin
-          return unless site["logo"]
+          return unless site.data.dig("site_metadata", "logo")
 
-          if absolute_url? site["logo"]
-            filters.uri_escape site["logo"]
+          if absolute_url? site.data.dig("site_metadata", "logo")
+            filters.uri_escape site.data.dig("site_metadata", "logo")
           else
-            filters.uri_escape filters.absolute_url site["logo"]
+            filters.uri_escape filters.absolute_url site.data.dig("site_metadata", "logo")
           end
         end
       end
@@ -177,7 +172,7 @@ module Jekyll
       private
 
       def filters
-        @filters ||= Jekyll::SeoTag::Filters.new(@context)
+        @filters ||= Bridgetown::SeoTag::Filters.new(@context)
       end
 
       def page
@@ -225,7 +220,7 @@ module Jekyll
       end
 
       def site_social
-        @site_social ||= sub_hash(site, "social")
+        @site_social ||= sub_hash(site.data.dig("site_metadata"), "social")
       end
 
       # Safely returns a sub hash
@@ -235,7 +230,7 @@ module Jekyll
       #
       # Returns the sub hash or an empty hash, if it does not exist
       def sub_hash(hash, key)
-        if hash[key].is_a?(Hash)
+        if hash && hash[key].is_a?(Hash)
           hash[key]
         else
           {}

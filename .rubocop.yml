@@ -5,14 +5,14 @@ inherit_gem:
   rubocop-jekyll: .rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   Exclude:
     - vendor/**/*
 
 Layout/LineLength:
   Exclude:
     - spec/**/*
-    - jekyll-seo-tag.gemspec
+    - bridgetown-seo-tag.gemspec
 
 Layout/BlockLength:
   Exclude:

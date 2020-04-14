@@ -10,4 +10,4 @@
 # Cop supports --auto-correct.
 Lint/ToJSON:
   Exclude:
-    - 'lib/jekyll-seo-tag/json_ld_drop.rb'
+    - 'lib/bridgetown-seo-tag/json_ld_drop.rb'

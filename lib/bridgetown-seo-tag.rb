@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
-require "jekyll"
-require "jekyll-seo-tag/version"
+require "bridgetown"
+require "bridgetown-seo-tag/version"
 
-module Jekyll
+module Bridgetown
   class SeoTag < Liquid::Tag
-    autoload :JSONLD,     "jekyll-seo-tag/json_ld"
-    autoload :AuthorDrop, "jekyll-seo-tag/author_drop"
-    autoload :ImageDrop,  "jekyll-seo-tag/image_drop"
-    autoload :JSONLDDrop, "jekyll-seo-tag/json_ld_drop"
-    autoload :UrlHelper,  "jekyll-seo-tag/url_helper"
-    autoload :Drop,       "jekyll-seo-tag/drop"
-    autoload :Filters,    "jekyll-seo-tag/filters"
+    autoload :AuthorDrop, "bridgetown-seo-tag/author_drop"
+    autoload :ImageDrop,  "bridgetown-seo-tag/image_drop"
+    autoload :UrlHelper,  "bridgetown-seo-tag/url_helper"
+    autoload :Drop,       "bridgetown-seo-tag/drop"
+    autoload :Filters,    "bridgetown-seo-tag/filters"
 
     attr_accessor :context
 
@@ -40,14 +38,14 @@ module Jekyll
 
     def options
       {
-        "version" => Jekyll::SeoTag::VERSION,
+        "version" => Bridgetown::SeoTag::VERSION,
         "title"   => title?,
       }
     end
 
     def payload
-      # site_payload is an instance of UnifiedPayloadDrop. See https://git.io/v5ajm
-      Jekyll::Utils.deep_merge_hashes(
+      # site_payload is an instance of UnifiedPayloadDrop
+      Bridgetown::Utils.deep_merge_hashes(
         context.registers[:site].site_payload,
         "page"      => context.registers[:page],
         "paginator" => context["paginator"],
@@ -57,16 +55,16 @@ module Jekyll
 
     def drop
       if context.registers[:site].liquid_renderer.respond_to?(:cache)
-        Jekyll::SeoTag::Drop.new(@text, @context)
+        Bridgetown::SeoTag::Drop.new(@text, @context)
       else
-        @drop ||= Jekyll::SeoTag::Drop.new(@text, @context)
+        @drop ||= Bridgetown::SeoTag::Drop.new(@text, @context)
       end
     end
 
     def info
       {
         :registers => context.registers,
-        :filters   => [Jekyll::Filters],
+        :filters   => [Bridgetown::Filters],
       }
     end
 
@@ -92,4 +90,4 @@ module Jekyll
   end
 end
 
-Liquid::Template.register_tag("seo", Jekyll::SeoTag)
+Liquid::Template.register_tag("seo", Bridgetown::SeoTag)

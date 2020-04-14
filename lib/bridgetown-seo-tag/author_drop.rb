@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Jekyll
+module Bridgetown
   class SeoTag
     # A drop representing the current page's author
     #
@@ -12,11 +12,11 @@ module Jekyll
     #
     # If the result from the name search is a string, we'll also check
     # for additional author metadata in `site.data.authors`
-    class AuthorDrop < Jekyll::Drops::Drop
+    class AuthorDrop < Bridgetown::Drops::Drop
       # Initialize a new AuthorDrop
       #
       # page - The page hash (e.g., Page#to_liquid)
-      # site - The Jekyll::Drops::SiteDrop
+      # site - The Bridgetown::Drops::SiteDrop
       def initialize(page: nil, site: nil)
         raise ArgumentError unless page && site
 
@@ -52,7 +52,7 @@ module Jekyll
 
         sources = [page["author"]]
         sources << page["authors"].first if page["authors"].is_a?(Array)
-        sources << site["author"]
+        sources << site.data.dig("site_metadata", "author")
         @resolved_author = sources.find { |s| !s.to_s.empty? }
       end
 

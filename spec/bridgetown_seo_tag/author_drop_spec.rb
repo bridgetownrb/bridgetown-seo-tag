@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe Jekyll::SeoTag::AuthorDrop do
+RSpec.describe Bridgetown::SeoTag::AuthorDrop do
   let(:data) { {} }
-  let(:config) { { "author" => "site_author" } }
+  let(:site_config) { {} }
+  let(:metadata_config) { { "author" => "site_author" } }
   let(:site) do
-    site = make_site(config)
-    site.data = data
+    site = make_site(metadata_config, site_config)
+    site.data = site.data.merge(data)
     site
   end
   let(:site_payload) { site.site_payload["site"] }
@@ -25,7 +26,7 @@ RSpec.describe Jekyll::SeoTag::AuthorDrop do
   subject { described_class.new(:page => page.to_liquid, :site => site_payload.to_liquid) }
 
   before do
-    Jekyll.logger.log_level = :error
+    Bridgetown.logger.log_level = :error
   end
 
   it "returns the author's name for #to_s" do
@@ -99,7 +100,7 @@ RSpec.describe Jekyll::SeoTag::AuthorDrop do
   end
 
   context "with author as a front matter default" do
-    let(:config) do
+    let(:site_config) do
       {
         "defaults" => [
           {
@@ -137,7 +138,6 @@ RSpec.describe Jekyll::SeoTag::AuthorDrop do
       end
     end
 
-    # See https://github.com/jekyll/jekyll-seo-tag/issues/202
     context "without an author name or handle" do
       let(:page_meta) { { "author" => { "foo" => "bar" } } }
 

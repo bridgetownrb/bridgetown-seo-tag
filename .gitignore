@@ -4,6 +4,6 @@
 Gemfile.lock
 pkg
 spec/reports/
-spec/fixtures/.jekyll-cache
+spec/fixtures/.bridgetown-cache
 tmp/
 vendor/bundle

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Jekyll
+module Bridgetown
   class SeoTag
     # A drop representing the page image
     # The image path will be pulled from:
@@ -9,8 +9,8 @@ module Jekyll
     # 2. The `image.path` key if it's a hash
     # 3. The `image.facebook` key
     # 4. The `image.twitter` key
-    class ImageDrop < Jekyll::Drops::Drop
-      include Jekyll::SeoTag::UrlHelper
+    class ImageDrop < Bridgetown::Drops::Drop
+      include Bridgetown::SeoTag::UrlHelper
 
       # Initialize a new ImageDrop
       #
@@ -67,7 +67,7 @@ module Jekyll
       end
 
       def filters
-        @filters ||= Jekyll::SeoTag::Filters.new(context)
+        @filters ||= Bridgetown::SeoTag::Filters.new(context)
       end
     end
   end

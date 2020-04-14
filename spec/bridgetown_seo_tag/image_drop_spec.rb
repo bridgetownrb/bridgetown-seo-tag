@@ -1,17 +1,18 @@
 # frozen_string_literal: true
 
-RSpec.describe Jekyll::SeoTag::ImageDrop do
-  let(:config)    { { "title" => "site title" } }
+RSpec.describe Bridgetown::SeoTag::ImageDrop do
+  let(:site_config) { {} }
+  let(:metadata_config)    { { "title" => "site title" } }
   let(:image)     { nil }
   let(:page_meta) { { "image" => image } }
   let(:page)      { make_page(page_meta) }
-  let(:site)      { make_site(config) }
+  let(:site)      { make_site(metadata_config, site_config) }
   let(:context)   { make_context(:page => page, :site => site) }
   let(:text) { "" }
   subject { described_class.new(:page => page.to_liquid, :context => context) }
 
   before do
-    Jekyll.logger.log_level = :error
+    Bridgetown.logger.log_level = :error
   end
 
   context "with image as a string" do
@@ -22,7 +23,7 @@ RSpec.describe Jekyll::SeoTag::ImageDrop do
     end
 
     context "with site.url" do
-      let(:config) { { "url" => "http://example.com" } }
+      let(:site_config) { { "url" => "http://example.com" } }
 
       it "makes the path absolute" do
         expect(subject["path"]).to eql("http://example.com/image.png")
