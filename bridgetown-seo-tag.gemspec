@@ -5,8 +5,8 @@ require_relative "lib/bridgetown-seo-tag/version"
 Gem::Specification.new do |spec|
   spec.name          = "bridgetown-seo-tag"
   spec.version       = Bridgetown::SeoTag::VERSION
-  spec.authors       = ["Ben Balter"]
-  spec.email         = ["ben.balter@github.com"]
+  spec.author        = "Bridgetown Team"
+  spec.email         = "maintainers@bridgetownrb.com"
   spec.summary       = "A Bridgetown plugin to add metadata tags for search engines and social networks to better index and display your site's content."
   spec.homepage      = "https://github.com/bridgetownrb/bridgetown-seo-tag"
   spec.license       = "MIT"
