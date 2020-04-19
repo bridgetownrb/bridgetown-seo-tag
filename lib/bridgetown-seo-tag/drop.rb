@@ -89,7 +89,9 @@ module Bridgetown
 
       def description
         @description ||= begin
-          format_string(page["description"] || page["excerpt"]) || site_description
+          format_string(
+            page["description"] || page["subtitle"] || page["excerpt"]
+          ) || site_description
         end
       end
 

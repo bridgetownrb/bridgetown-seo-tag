@@ -4,6 +4,26 @@ A Bridgetown plugin to add metadata tags for search engines and social networks 
 
 [![Gem Version](https://badge.fury.io/rb/bridgetown-seo-tag.svg)](https://badge.fury.io/rb/bridgetown-seo-tag)
 
+## Installation
+
+Run this command to add this plugin to your site's Gemfile:
+
+```shell
+$ bundle add bridgetown-seo-tag -g bridgetown_plugins
+```
+
+Or simply add this line to your Gemfile:
+
+```ruby
+gem 'bridgetown-seo-tag', group: "bridgetown_plugins"
+```
+
+And then add the Liquid tag to your HTML head:
+
+```liquid
+{% seo %}
+```
+
 ## What it does
 
 Bridgetown SEO Tag adds the following meta tags to your site:

@@ -122,6 +122,13 @@ RSpec.describe Bridgetown::SeoTag do
       expect(output).to match(%r!<meta name="description" content="foo" />!)
       expect(output).to match(%r!<meta property="og:description" content="foo" />!)
     end
+
+    it "uses the page subtitle" do
+      page.data.delete("description")
+      page.data["subtitle"] = "subtitle desc"
+      expect(output).to match(%r!<meta name="description" content="subtitle desc" />!)
+      expect(output).to match(%r!<meta property="og:description" content="subtitle desc" />!)
+    end
   end
 
   context "with page.excerpt" do
@@ -315,6 +322,16 @@ RSpec.describe Bridgetown::SeoTag do
   end
 
   context "twitter" do
+    context "with site.twitter.username" do
+      let(:site_twitter) { "bridgetownrb" }
+      let(:metadata_config) { { "twitter" => site_twitter } }
+
+      it "uses the simplifed twitter handle" do
+        expected = %r!<meta name="twitter:site" content="@bridgetownrb" />!
+        expect(output).to match(expected)
+      end
+    end
+
     context "with site.twitter.username" do
       let(:site_twitter) { { "username" => "bridgetownrb" } }
       let(:metadata_config) { { "twitter" => site_twitter } }
