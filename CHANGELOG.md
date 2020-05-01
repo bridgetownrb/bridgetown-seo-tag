@@ -1,4 +1,8 @@
-# Change Log
+# master
+
+## 3.0.4 / 2020-05-01
+
+Update to require a minimum Ruby version of 2.5.
 
 ## 3.0.3 / 2020-04-19
 

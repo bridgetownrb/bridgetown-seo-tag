@@ -49,6 +49,10 @@ Bridgetown SEO tag isn't designed to accommodate every possible use case. It sho
 
 More detailed documentation forthcoming.
 
+## Testing
+
+* Run `bundle exec rspec` to run the test suite
+* Or run `script/cibuild` to validate with Rubocop and test with rspec together
 
 ## Contributing
 
