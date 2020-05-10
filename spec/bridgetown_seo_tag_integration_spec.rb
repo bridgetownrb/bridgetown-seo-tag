@@ -12,7 +12,7 @@ RSpec.describe Bridgetown::SeoTag do
   end
   let(:page)      { make_page }
   let(:post)      { make_post }
-  let(:context)   { make_context(:page => page, :site => site) }
+  let(:context)   { make_context(page: page, site: site) }
   let(:tag)       { "seo" }
   let(:text)      { "" }
   let(:output)    { Liquid::Template.parse("{% #{tag} #{text} %}").render!(context, {}) }
@@ -34,8 +34,8 @@ RSpec.describe Bridgetown::SeoTag do
   it "outputs valid HTML" do
     site.process
     options = {
-      :check_html       => true,
-      :checks_to_ignore => %w(ScriptCheck LinkCheck ImageCheck),
+      check_html: true,
+      checks_to_ignore: %w(ScriptCheck LinkCheck ImageCheck),
     }
     status = HTMLProofer.check_directory(dest_dir, options).run
     expect(status).to eql(true)
@@ -277,7 +277,7 @@ RSpec.describe Bridgetown::SeoTag do
         }
       end
       let(:page) { make_post(meta) }
-      let(:context) { make_context(:page => page, :site => site) }
+      let(:context) { make_context(page: page, site: site) }
 
       it "outputs post meta" do
         expected = %r!<meta property="og:type" content="article" />!

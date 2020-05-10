@@ -7,9 +7,9 @@ RSpec.describe Bridgetown::SeoTag::ImageDrop do
   let(:page_meta) { { "image" => image } }
   let(:page)      { make_page(page_meta) }
   let(:site)      { make_site(metadata_config, site_config) }
-  let(:context)   { make_context(:page => page, :site => site) }
+  let(:context)   { make_context(page: page, site: site) }
   let(:text) { "" }
-  subject { described_class.new(:page => page.to_liquid, :context => context) }
+  subject { described_class.new(page: page.to_liquid, context: context) }
 
   before do
     Bridgetown.logger.log_level = :error

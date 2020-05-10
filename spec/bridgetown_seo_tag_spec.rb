@@ -6,7 +6,7 @@ RSpec.describe Bridgetown::SeoTag do
   let(:page_meta) { {} }
   let(:page)      { make_page(page_meta) }
   let(:site)      { make_site(metadata_config, site_config) }
-  let(:render_context) { make_context(:page => page, :site => site) }
+  let(:render_context) { make_context(page: page, site: site) }
   let(:text) { "" }
   let(:tag_name) { "github_edit_link" }
   let(:tokenizer) { Liquid::Tokenizer.new("") }

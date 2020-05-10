@@ -3,7 +3,7 @@
 RSpec.describe Bridgetown::SeoTag::Filters do
   let(:page)      { make_page }
   let(:site)      { make_site }
-  let(:context)   { make_context(:page => page, :site => site) }
+  let(:context)   { make_context(page: page, site: site) }
   subject { described_class.new(context) }
 
   before do

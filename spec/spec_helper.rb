@@ -43,7 +43,7 @@ end
 
 def make_post(options = {})
   filename = File.expand_path("_posts/2015-01-01-post.md", CONFIG_DEFAULTS["source"])
-  config = { :site => site, :collection => site.collections["posts"] }
+  config = { site: site, collection: site.collections["posts"] }
   page = Bridgetown::Document.new filename, config
   page.merge_data!(options)
   page
@@ -57,5 +57,5 @@ def make_site(options = {}, site_config = {})
 end
 
 def make_context(registers = {}, environments = {})
-  Liquid::Context.new(environments, {}, { :site => site, :page => page }.merge(registers))
+  Liquid::Context.new(environments, {}, { site: site, page: page }.merge(registers))
 end

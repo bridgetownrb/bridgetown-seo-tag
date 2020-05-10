@@ -6,7 +6,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
   let(:page_meta) { { "title" => "page title" } }
   let(:page)      { make_page(page_meta) }
   let(:site)      { make_site(metadata_config, site_config) }
-  let(:context)   { make_context(:page => page, :site => site) }
+  let(:context)   { make_context(page: page, site: site) }
   let(:text) { "" }
   subject { described_class.new(text, context) }
 
@@ -122,7 +122,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
       end
 
       context "with an empty page title" do
-        let(:page_meta) { { :title => "" } }
+        let(:page_meta) { { title: "" } }
 
         it "builds the title" do
           expect(subject.title).to eql("site title")
@@ -130,7 +130,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
       end
 
       context "with an empty site title" do
-        let(:metadata_config) { { :title => "" } }
+        let(:metadata_config) { { title: "" } }
 
         it "builds the title" do
           expect(subject.title).to eql("page title")
@@ -138,8 +138,8 @@ RSpec.describe Bridgetown::SeoTag::Drop do
       end
 
       context "with an empty page and site title" do
-        let(:page_meta) { { :title => "" } }
-        let(:metadata_config) { { :title => "" } }
+        let(:page_meta) { { title: "" } }
+        let(:metadata_config) { { title: "" } }
 
         it "returns nil" do
           expect(subject.title).to be_nil
@@ -501,7 +501,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
   context "pagination" do
     let(:context) do
       make_context(
-        { :page => page, :site => site },
+        { page: page, site: site },
         "paginator" => { "page" => 2, "total_pages" => 10 }
       )
     end

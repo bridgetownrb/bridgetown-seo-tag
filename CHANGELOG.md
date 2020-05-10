@@ -1,5 +1,7 @@
 # master
 
+Switch to using Rubocop Bridgetown gem.
+
 ## 3.0.4 / 2020-05-01
 
 Update to require a minimum Ruby version of 2.5.

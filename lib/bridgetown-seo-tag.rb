@@ -63,8 +63,8 @@ module Bridgetown
 
     def info
       {
-        :registers => context.registers,
-        :filters   => [Bridgetown::Filters],
+        registers: context.registers,
+        filters: [Bridgetown::Filters],
       }
     end
 

@@ -23,7 +23,7 @@ RSpec.describe Bridgetown::SeoTag::AuthorDrop do
 
   let(:page_meta) { { "title" => "page title" } }
   let(:page)      { make_page(page_meta) }
-  subject { described_class.new(:page => page.to_liquid, :site => site_payload.to_liquid) }
+  subject { described_class.new(page: page.to_liquid, site: site_payload.to_liquid) }
 
   before do
     Bridgetown.logger.log_level = :error
@@ -69,11 +69,11 @@ RSpec.describe Bridgetown::SeoTag::AuthorDrop do
       end
 
       {
-        :string       => { "author" => "string_author" },
-        :array        => { "authors" => %w(array_author author2) },
-        :empty_string => { "author" => "" },
-        :nil          => { "author" => nil },
-        :hash         => { "author" => { "name" => "hash_author" } },
+        string: { "author" => "string_author" },
+        array: { "authors" => %w(array_author author2) },
+        empty_string: { "author" => "" },
+        nil: { "author" => nil },
+        hash: { "author" => { "name" => "hash_author" } },
       }.each do |author_type, data|
         context "with author as #{author_type}" do
           let(:page_meta) { data }

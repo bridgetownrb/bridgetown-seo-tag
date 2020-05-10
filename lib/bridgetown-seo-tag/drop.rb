@@ -97,13 +97,13 @@ module Bridgetown
 
       # A drop representing the page author
       def author
-        @author ||= AuthorDrop.new(:page => page, :site => site)
+        @author ||= AuthorDrop.new(page: page, site: site)
       end
 
       # Returns a Drop representing the page's image
       # Returns nil if the image has no path, to preserve backwards compatability
       def image
-        @image ||= ImageDrop.new(:page => page, :context => @context)
+        @image ||= ImageDrop.new(page: page, context: @context)
         @image if @image.path
       end
 
@@ -199,7 +199,7 @@ module Bridgetown
         total = @context["paginator"]["total_pages"]
         paginator_message = site["seo_paginator_message"] || "Page %<current>s of %<total>s for "
 
-        format(paginator_message, :current => current, :total => total) if current > 1
+        format(paginator_message, current: current, total: total) if current > 1
       end
 
       attr_reader :context

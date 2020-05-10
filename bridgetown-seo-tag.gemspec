@@ -22,5 +22,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "html-proofer", "~> 3.7"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.5"
-  spec.add_development_dependency "rubocop-jekyll", "~> 0.5"
+  spec.add_development_dependency "rubocop-bridgetown", "~> 0.2"
 end
