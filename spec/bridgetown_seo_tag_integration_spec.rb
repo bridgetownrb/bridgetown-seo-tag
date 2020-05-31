@@ -10,13 +10,18 @@ RSpec.describe Bridgetown::SeoTag do
     site.data = site.data.merge(data)
     site
   end
-  let(:page)      { make_page }
+  let(:paginator) { { "previous_page" => true, "previous_page_path" => "foo", "next_page" => true, "next_page_path" => "bar" } }
+  let(:page) do
+    make_page.yield_self do |page|
+      page.pager = paginator
+      page
+    end
+  end
   let(:post)      { make_post }
   let(:context)   { make_context(page: page, site: site) }
   let(:tag)       { "seo" }
   let(:text)      { "" }
   let(:output)    { Liquid::Template.parse("{% #{tag} #{text} %}").render!(context, {}) }
-  let(:paginator) { { "previous_page" => true, "previous_page_path" => "foo", "next_page" => true, "next_page_path" => "bar" } }
 
   before do
     Bridgetown.logger.log_level = :error

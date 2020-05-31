@@ -44,7 +44,7 @@ module Bridgetown
     end
 
     def payload
-      paginator = context.registers[:page].respond_to?(:pager) ? context.registers[:page].pager : nil
+      paginator = context.registers[:page].pager if context.registers[:page].respond_to?(:pager)
 
       # site_payload is an instance of UnifiedPayloadDrop
       Bridgetown::Utils.deep_merge_hashes(
@@ -67,7 +67,7 @@ module Bridgetown
       {
         registers: {
           site: context.registers[:site],
-          page: context.registers[:page]
+          page: context.registers[:page],
         },
         filters: [Bridgetown::Filters],
       }

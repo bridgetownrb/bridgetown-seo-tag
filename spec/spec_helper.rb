@@ -2,6 +2,9 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "bridgetown"
+# rubocop:disable Lint/Void
+Bridgetown::Site # resolve weird autoload issue
+# rubocop:enable Lint/Void
 require "bridgetown-seo-tag"
 require "html-proofer"
 
@@ -14,7 +17,7 @@ module Bridgetown
   end
 end
 
-ENV["JEKYLL_LOG_LEVEL"] = "error"
+ENV["BRIDGETOWN_LOG_LEVEL"] = "error"
 
 def root_dir
   File.expand_path("fixtures", __dir__)

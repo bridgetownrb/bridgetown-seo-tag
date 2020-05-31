@@ -1,6 +1,6 @@
 # master
 
-## 3.0.5
+## 3.0.5.beta1 / 2020-05-31
 
 * Fix bugs due to Bridgetown 0.15 switch to `render` tag.
 * Switch to using Rubocop Bridgetown gem.
