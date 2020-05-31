@@ -1,6 +1,9 @@
 # master
 
-Switch to using Rubocop Bridgetown gem.
+## 3.0.5
+
+* Fix bugs due to Bridgetown 0.15 switch to `render` tag.
+* Switch to using Rubocop Bridgetown gem.
 
 ## 3.0.4 / 2020-05-01
 

@@ -44,26 +44,31 @@ module Bridgetown
     end
 
     def payload
+      paginator = context.registers[:page].respond_to?(:pager) ? context.registers[:page].pager : nil
+
       # site_payload is an instance of UnifiedPayloadDrop
       Bridgetown::Utils.deep_merge_hashes(
         context.registers[:site].site_payload,
         "page"      => context.registers[:page],
-        "paginator" => context["paginator"],
+        "paginator" => paginator,
         "seo_tag"   => drop
       )
     end
 
     def drop
       if context.registers[:site].liquid_renderer.respond_to?(:cache)
-        Bridgetown::SeoTag::Drop.new(@text, @context)
+        Bridgetown::SeoTag::Drop.new(@text, context)
       else
-        @drop ||= Bridgetown::SeoTag::Drop.new(@text, @context)
+        @drop ||= Bridgetown::SeoTag::Drop.new(@text, context)
       end
     end
 
     def info
       {
-        registers: context.registers,
+        registers: {
+          site: context.registers[:site],
+          page: context.registers[:page]
+        },
         filters: [Bridgetown::Filters],
       }
     end
