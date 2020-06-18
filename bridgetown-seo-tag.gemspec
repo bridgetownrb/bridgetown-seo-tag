@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r!^(test|script|spec|features)/!) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "bridgetown", ">= 0.15.0.beta2", "< 2.0"
+  spec.add_dependency "bridgetown", ">= 0.15.0", "< 2.0"
 
   spec.add_development_dependency "bundler", ">= 1.15"
   spec.add_development_dependency "html-proofer", "~> 3.7"
