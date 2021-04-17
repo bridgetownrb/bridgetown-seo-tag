@@ -30,6 +30,14 @@ Or if you wish to control your HTML `<title>` tag yourself:
 {% seo title=false %}
 ```
 
+You can use the `seo` helper in Ruby templates as well:
+
+```erb
+<%= seo %>
+<!-- or -->
+<%= seo title: false %>
+```
+
 ## Summary
 
 Bridgetown SEO Tag adds the following meta tags to your site:

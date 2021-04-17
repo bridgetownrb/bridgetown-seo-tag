@@ -46,6 +46,23 @@ RSpec.describe Bridgetown::SeoTag do
     expect(status).to eql(true)
   end
 
+  context "erb helper" do
+    let(:post) { make_post(title: "ERB helpers", subtitle: "yay", layout: "helper") }
+    let(:post_output) do
+      site.read
+      site.data.site_metadata = { title: "Site name" }
+      Bridgetown::Renderer.new(site, post).run
+      post.output
+    end
+
+    it "outputs valid HTML" do
+      expect(post_output).to match(%r!<meta property="og:title" content="ERB helpers" />!)
+      expect(post_output).to match(%r!<meta name="description" content="yay" />!)
+      expect(post_output).to match(%r!<meta property="og:description" content="yay" />!)
+      expect(post_output).to match(%r!<meta property="og:site_name" content="Site name" />!)
+    end
+  end
+
   context "with page.title" do
     let(:page) { make_page("title" => "foo") }
 

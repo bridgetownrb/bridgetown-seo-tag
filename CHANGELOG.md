@@ -1,5 +1,9 @@
 # master
 
+## 4.0.0 / 2021-04-17
+
+* New release with helper to support Ruby templates like ERB
+
 ## 3.0.5  / 2020-06-18
 
 * Final release

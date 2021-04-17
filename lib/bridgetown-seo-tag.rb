@@ -96,3 +96,5 @@ module Bridgetown
 end
 
 Liquid::Template.register_tag("seo", Bridgetown::SeoTag)
+
+require "bridgetown-seo-tag/builder"
