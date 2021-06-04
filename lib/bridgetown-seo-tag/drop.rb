@@ -166,10 +166,12 @@ module Bridgetown
 
       def canonical_url
         @canonical_url ||= begin
-          if page["canonical_url"].to_s.empty?
+          if page["canonical_url"].to_s.present?
+            page["canonical_url"]
+          elsif page["url"].to_s.present?
             filters.absolute_url(page["url"]).to_s.gsub(%r!/index\.html$!, "/")
           else
-            page["canonical_url"]
+            filters.absolute_url(page["relative_url"]).to_s.gsub(%r!/index\.html$!, "/")
           end
         end
       end

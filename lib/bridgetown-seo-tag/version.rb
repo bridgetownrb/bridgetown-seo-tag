@@ -5,6 +5,6 @@ module Liquid; class Tag; end; end
 
 module Bridgetown
   class SeoTag < Liquid::Tag
-    VERSION = "4.0.0"
+    VERSION = "4.0.1"
   end
 end
