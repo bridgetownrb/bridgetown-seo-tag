@@ -133,7 +133,7 @@ RSpec.describe Bridgetown::SeoTag do
     let(:metadata_config) { { "title" => "Site Title", "description" => "Site Description" } }
 
     it "builds the title with site title and description" do
-      expect(output).to match(%r!<title>Site Title \| Site Description</title>!)
+      expect(output).to match(%r!<title>Site Title: Site Description</title>!)
     end
   end
 

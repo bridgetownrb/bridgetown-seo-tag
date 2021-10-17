@@ -81,7 +81,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
         end
 
         it "builds the title" do
-          expect(subject.title).to eql("site title | site description")
+          expect(subject.title).to eql("site title: site description")
         end
       end
 
@@ -92,7 +92,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
         end
 
         it "builds the title" do
-          expect(subject.title).to eql("site title | site tagline")
+          expect(subject.title).to eql("site title: site tagline")
         end
       end
 

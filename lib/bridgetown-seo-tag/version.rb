@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Prevent bundler errors
-module Liquid; class Tag; end; end
+module Liquid; class Tag; end; end # rubocop:disable Lint/EmptyClass
 
 module Bridgetown
   class SeoTag < Liquid::Tag

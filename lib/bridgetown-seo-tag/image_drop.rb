@@ -34,14 +34,14 @@ module Bridgetown
 
       private
 
-      attr_accessor :page
-      attr_accessor :context
+      attr_accessor :page, :context
 
       # The normalized image hash with a `path` key (which may be nil)
       def image_hash
-        @image_hash ||= if page["image"].is_a?(Hash)
+        @image_hash ||= case page["image"]
+                        when Hash
                           { "path" => nil }.merge(page["image"])
-                        elsif page["image"].is_a?(String)
+                        when String
                           { "path" => page["image"] }
                         else
                           { "path" => nil }
@@ -50,9 +50,7 @@ module Bridgetown
       alias_method :fallback_data, :image_hash
 
       def raw_path
-        @raw_path ||= begin
-          image_hash["path"] || image_hash["facebook"] || image_hash["twitter"]
-        end
+        @raw_path ||= image_hash["path"] || image_hash["facebook"] || image_hash["twitter"]
       end
 
       def absolute_url

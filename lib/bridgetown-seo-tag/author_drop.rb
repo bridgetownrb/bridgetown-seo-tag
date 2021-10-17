@@ -41,8 +41,7 @@ module Bridgetown
 
       private
 
-      attr_reader :page
-      attr_reader :site
+      attr_reader :page, :site
 
       # Finds the page author in the page.author, page.authors, or site.author
       #
@@ -62,10 +61,9 @@ module Bridgetown
       # Returns a hash representing additional metadata or an empty hash
       def site_data_hash
         @site_data_hash ||= begin
-          return {} unless resolved_author.is_a?(String)
-          return {} unless site.data["authors"].is_a?(Hash)
-
-          author_hash = site.data["authors"][resolved_author]
+          author_hash = if site.data.authors.is_a?(Hash) && resolved_author.is_a?(String)
+                          site.data.authors[resolved_author]
+                        end
           author_hash.is_a?(Hash) ? author_hash : {}
         end
       end
@@ -74,15 +72,14 @@ module Bridgetown
       # including site-wide metadata if the author is provided as a string,
       # or an empty hash, if the author cannot be resolved
       def author_hash
-        @author_hash ||= begin
-          if resolved_author.is_a? Hash
-            resolved_author
-          elsif resolved_author.is_a? String
-            { "name" => resolved_author }.merge(site_data_hash)
-          else
-            {}
-          end
-        end
+        @author_hash ||= case resolved_author
+                         when Hash
+                           resolved_author
+                         when String
+                           { "name" => resolved_author }.merge(site_data_hash)
+                         else
+                           {}
+                         end
       end
 
       # Since author_hash is aliased to fallback_data, any values in the hash

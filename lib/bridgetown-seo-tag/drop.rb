@@ -6,6 +6,7 @@ module Bridgetown
       include Bridgetown::SeoTag::UrlHelper
 
       TITLE_SEPARATOR = " | "
+      TAGLINE_SEPARATOR = ": "
       FORMAT_STRING_METHODS = [
         :markdownify, :strip_html, :normalize_whitespace, :escape_once,
       ].freeze
@@ -47,7 +48,14 @@ module Bridgetown
 
       # Page title without site title or description appended
       def page_title
-        @page_title ||= format_string(page["title"]) || site_title
+        @page_title ||= format_string(
+          if (page["title"] == "Index" || page["title"].blank?) &&
+              site_tagline_or_description
+            "#{site_title}#{TAGLINE_SEPARATOR}#{site_tagline_or_description}"
+          else
+            page["title"]
+          end
+        ) || site_title
       end
 
       def site_tagline_or_description
@@ -55,23 +63,18 @@ module Bridgetown
       end
 
       # Page title with site title or description appended
-      # rubocop:disable Metrics/CyclomaticComplexity
       def title
-        @title ||= begin
-          if site_title && page_title != site_title
-            page_title + TITLE_SEPARATOR + site_title
-          elsif site_description && site_title
-            site_title + TITLE_SEPARATOR + site_tagline_or_description
-          else
-            page_title || site_title
-          end
-        end
+        @title ||= if site_title && page_title != site_title &&
+            !format_string(page_title).start_with?(site_title + TAGLINE_SEPARATOR)
+                     page_title + TITLE_SEPARATOR + site_title
+                   else
+                     page_title || site_title
+                   end
 
         return page_number + @title if page_number
 
         @title
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
       def name
         return @name if defined?(@name)
@@ -88,11 +91,9 @@ module Bridgetown
       end
 
       def description
-        @description ||= begin
-          format_string(
-            page["description"] || page["subtitle"] || page["excerpt"]
-          ) || site_description
-        end
+        @description ||= format_string(
+          page["description"] || page["subtitle"] || page["excerpt"]
+        ) || site_description
       end
 
       # A drop representing the page author
@@ -125,39 +126,33 @@ module Bridgetown
       end
 
       def type
-        @type ||= begin
-          if page_seo["type"]
-            page_seo["type"]
-          elsif homepage_or_about?
-            "WebSite"
-          elsif page["date"]
-            "BlogPosting"
-          else
-            "WebPage"
-          end
-        end
+        @type ||= if page_seo["type"]
+                    page_seo["type"]
+                  elsif homepage_or_about?
+                    "WebSite"
+                  elsif page["date"]
+                    "BlogPosting"
+                  else
+                    "WebPage"
+                  end
       end
 
       def links
-        @links ||= begin
-          if page_seo["links"]
-            page_seo["links"]
-          elsif homepage_or_about? && site_social["links"]
-            site_social["links"]
-          end
-        end
+        @links ||= if page_seo["links"]
+                     page_seo["links"]
+                   elsif homepage_or_about? && site_social["links"]
+                     site_social["links"]
+                   end
       end
 
       def logo
-        @logo ||= begin
-          return unless site.data.dig("site_metadata", "logo")
-
-          if absolute_url? site.data.dig("site_metadata", "logo")
-            filters.uri_escape site.data.dig("site_metadata", "logo")
-          else
-            filters.uri_escape filters.absolute_url site.data.dig("site_metadata", "logo")
-          end
-        end
+        @logo ||= if !site.data.dig("site_metadata", "logo")
+                    nil
+                  elsif absolute_url? site.data.dig("site_metadata", "logo")
+                    filters.uri_escape site.data.dig("site_metadata", "logo")
+                  else
+                    filters.uri_escape filters.absolute_url site.data.dig("site_metadata", "logo")
+                  end
       end
 
       def page_lang
@@ -165,15 +160,15 @@ module Bridgetown
       end
 
       def canonical_url
-        @canonical_url ||= begin
-          if page["canonical_url"].to_s.present?
-            page["canonical_url"]
-          elsif page["url"].to_s.present?
-            filters.absolute_url(page["url"]).to_s.gsub(%r!/index\.html$!, "/")
-          else
-            filters.absolute_url(page["relative_url"]).to_s.gsub(%r!/index\.html$!, "/")
-          end
-        end
+        @canonical_url ||= if page["canonical_url"].to_s.present?
+                             page["canonical_url"]
+                           elsif page["url"].to_s.present?
+                             filters.absolute_url(page["url"]).to_s.gsub(%r!/index\.html$!, "/")
+                           else
+                             filters.absolute_url(page["relative_url"]).to_s.gsub(
+                               %r!/index\.html$!, "/"
+                             )
+                           end
       end
 
       private
@@ -227,7 +222,7 @@ module Bridgetown
       end
 
       def site_social
-        @site_social ||= sub_hash(site.data.dig("site_metadata"), "social")
+        @site_social ||= sub_hash(site.data["site_metadata"], "social")
       end
 
       # Safely returns a sub hash

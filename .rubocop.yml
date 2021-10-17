@@ -17,3 +17,10 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - spec/**/*
+
+Lint/MissingSuper:
+  Enabled: false
+
+Performance/CollectionLiteralInLoop:
+  Exclude:
+    - spec/**/*

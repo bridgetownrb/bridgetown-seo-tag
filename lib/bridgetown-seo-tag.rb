@@ -81,15 +81,11 @@ module Bridgetown
       private
 
       def template_contents
-        @template_contents ||= begin
-          File.read(template_path).gsub(MINIFY_REGEX, "")
-        end
+        @template_contents ||= File.read(template_path).gsub(MINIFY_REGEX, "")
       end
 
       def template_path
-        @template_path ||= begin
-          File.expand_path "./template.html", File.dirname(__FILE__)
-        end
+        @template_path ||= File.expand_path "./template.html", File.dirname(__FILE__)
       end
     end
   end
