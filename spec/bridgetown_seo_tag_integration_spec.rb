@@ -252,14 +252,16 @@ RSpec.describe Bridgetown::SeoTag do
         end
       end
 
-      context "when given an image height and width" do
-        let(:image) { { "path" => "/img/foo.png", "height" => 1, "width" => 2 } }
+      context "when given an image height, width, and alt text" do
+        let(:image) { { "path" => "/img/foo.png", "height" => 1, "width" => 2, "alt" => "foo" } }
         let(:page) { make_page("image" => image) }
 
-        it "outputs an open graph image width and height" do
+        it "outputs an open graph image height, width, and alt text" do
           expected = %r!<meta property="og:image:height" content="1" />!
           expect(output).to match(expected)
           expected = %r!<meta property="og:image:width" content="2" />!
+          expect(output).to match(expected)
+          expected = %r!<meta property="og:image:alt" content="foo" />!
           expect(output).to match(expected)
         end
       end
@@ -405,10 +407,12 @@ RSpec.describe Bridgetown::SeoTag do
 
       context "with page.image" do
         context "without *.twitter.card" do
-          let(:page) { make_page("image" => "/img/foo.png") }
+          let(:page) { make_page("image" => { "path" => "/img/foo.png", "alt" => "foo" }) }
 
           it "outputs summary card with large image" do
             expected = %r!<meta name="twitter:card" content="summary_large_image" />!
+            expect(output).to match(expected)
+            expected = %r!<meta name="twitter:image:alt" content="foo" />!
             expect(output).to match(expected)
           end
         end
