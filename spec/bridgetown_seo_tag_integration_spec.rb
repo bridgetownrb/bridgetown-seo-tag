@@ -137,6 +137,22 @@ RSpec.describe Bridgetown::SeoTag do
     end
   end
 
+  context "with page.date" do
+    let(:page) { make_page("date" => Date.new) }
+    it 'outputs open graph type article' do
+      expected = %r!<meta property="og:type" content="article" />!
+      expect(output).to match(expected)
+    end
+  end
+
+  context "without page.date" do
+    let(:page) { make_page("date" => nil) }
+    it 'outputs open graph type website' do
+      expected = %r!<meta property="og:type" content="website" />!
+      expect(output).to match(expected)
+    end
+  end
+
   context "with page.description" do
     let(:page) { make_page("description" => "foo") }
 

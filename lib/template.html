@@ -40,6 +40,8 @@
 {% if page.date %}
   <meta property="og:type" content="article" />
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
+{% else %}
+  <meta property="og:type" content="website" />
 {% endif %}
 
 {% if paginator.previous_page %}
@@ -48,7 +50,6 @@
 {% if paginator.next_page %}
   <link rel="next" href="{{ paginator.next_page_path | absolute_url }}" />
 {% endif %}
-
 
 {% if seo_tag.image %}
   <meta name="twitter:card" content="{{ page.twitter.card | default: site.metadata.twitter.card | default: "summary_large_image" }}" />
