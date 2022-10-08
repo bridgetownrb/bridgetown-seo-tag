@@ -38,7 +38,7 @@ RSpec.describe Bridgetown::SeoTag do
     end
 
     it "contains the page" do
-      expect(payload["page"]).to be_a(Bridgetown::Page)
+      expect(payload["page"]).to be_a(Bridgetown::GeneratedPage)
     end
 
     it "contains the site" do

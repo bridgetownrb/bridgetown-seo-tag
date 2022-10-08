@@ -13,7 +13,7 @@ RSpec.describe Bridgetown::SeoTag do
   let(:paginator) { { "previous_page" => true, "previous_page_path" => "foo", "next_page" => true, "next_page_path" => "bar" } }
   let(:page) do
     make_page.yield_self do |page|
-      page.pager = paginator
+      page.paginator = paginator
       page
     end
   end
@@ -51,7 +51,7 @@ RSpec.describe Bridgetown::SeoTag do
     let(:post_output) do
       site.read
       site.data.site_metadata = { title: "Site name" }
-      Bridgetown::Renderer.new(site, post).run
+      post.transform!
       post.output
     end
 

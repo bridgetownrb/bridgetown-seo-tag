@@ -493,7 +493,7 @@ RSpec.describe Bridgetown::SeoTag::Drop do
 
     context "when canonical url is not specified for a page" do
       it "uses site specific canonical url" do
-        expect(subject.canonical_url).to eq("http://example.com/page.html")
+        expect(subject.canonical_url).to eq("http://example.com/page/")
       end
     end
   end

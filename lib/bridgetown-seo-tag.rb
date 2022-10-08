@@ -94,6 +94,6 @@ end
 Liquid::Template.register_tag("seo", Bridgetown::SeoTag)
 require "bridgetown-seo-tag/builder"
 
-Bridgetown.initializer :"bridgetown-seo-tag" do
-  builder Bridgetown::SeoTag::Builder
+Bridgetown.initializer :"bridgetown-seo-tag" do |config|
+  config.builder Bridgetown::SeoTag::Builder
 end

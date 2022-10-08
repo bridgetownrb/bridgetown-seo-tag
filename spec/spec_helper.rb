@@ -2,6 +2,9 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "bridgetown"
+
+Bridgetown.begin!
+
 # rubocop:disable Lint/Void
 Bridgetown::Site # resolve weird autoload issue
 # rubocop:enable Lint/Void
@@ -38,16 +41,18 @@ CONFIG_DEFAULTS = {
 }.freeze
 
 def make_page(options = {})
-  page = Bridgetown::Page.new site, CONFIG_DEFAULTS["source"], "", "page.md"
-  page.data = options
+  page = Bridgetown::GeneratedPage.new site, CONFIG_DEFAULTS["source"], "", "page.md"
+  page.data = options.with_dot_access
   page
 end
 
 def make_post(options = {})
   filename = File.expand_path("_posts/2015-01-01-post.md", CONFIG_DEFAULTS["source"])
   config = { site: site, collection: site.collections["posts"] }
-  page = Bridgetown::Document.new filename, config
-  page.merge_data!(options)
+  origin = Bridgetown::Model::RepoOrigin.new_with_collection_path(:posts, "_posts/2015-01-01-post.md")
+  page = Bridgetown::Model::Base.new(origin.read).to_resource
+#  page = Bridgetown::Resource::Base.new filename, config
+  page.data.merge!(options)
   page
 end
 
