@@ -4,8 +4,8 @@ module Bridgetown
   class SeoTag
     class Builder < Bridgetown::Builder
       def build
-        helper "seo", helpers_scope: true do |title: true|
-          context = Liquid::Context.new({}, {}, { site: site, page: view.page })
+        helper "seo" do |title: true|
+          context = Liquid::Context.new({}, {}, { site: site, page: helpers.view.page })
           tag_output = Liquid::Template.parse(
             "{% seo #{"title=false" unless title} %}"
           ).render!(context, {})
@@ -15,5 +15,3 @@ module Bridgetown
     end
   end
 end
-
-Bridgetown::SeoTag::Builder.register

@@ -11,16 +11,16 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/bridgetownrb/bridgetown-seo-tag"
   spec.license       = "MIT"
 
-  spec.required_ruby_version = ">= 2.5.0"
+  spec.required_ruby_version = ">= 2.7.0"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r!^(test|script|spec|features)/!) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "bridgetown", ">= 0.20.0", "< 2.0"
+  spec.add_dependency "bridgetown", ">= 1.2.0.beta1", "< 2.0"
 
   spec.add_development_dependency "bundler", ">= 1.15"
   spec.add_development_dependency "html-proofer", "~> 3.7"
-  spec.add_development_dependency "rake", "~> 12.0"
+  spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "rspec", "~> 3.5"
   spec.add_development_dependency "rubocop-bridgetown", "~> 0.3"
 end
