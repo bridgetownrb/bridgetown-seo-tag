@@ -112,7 +112,9 @@ RSpec.describe Bridgetown::SeoTag::AuthorDrop do
     end
 
     it "uses the author from the front matter default" do
-      expect(subject["name"]).to eql("front matter default")
+      site # init new config
+      defaults_page = Bridgetown::SeoTag::AuthorDrop.new(page: make_resource_page.to_liquid, site: site_payload.to_liquid)
+      expect(defaults_page["name"]).to eql("front matter default")
     end
   end
 

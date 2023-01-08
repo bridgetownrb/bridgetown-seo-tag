@@ -11,7 +11,7 @@ RSpec.describe Bridgetown::SeoTag::Filters do
   end
 
   it "stores the context" do
-    expect(subject.instance_variable_get("@context")).to be_a(Liquid::Context)
+    expect(subject.instance_variable_get(:@context)).to be_a(Liquid::Context)
   end
 
   it "exposes bridgetown filters" do

@@ -16,7 +16,7 @@ RSpec.describe Bridgetown::SeoTag do
 
   subject do
     tag = described_class.parse(tag_name, text, tokenizer, parse_context)
-    tag.instance_variable_set("@context", render_context)
+    tag.instance_variable_set(:@context, render_context)
     tag
   end
 

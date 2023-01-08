@@ -12,7 +12,7 @@ RSpec.describe Bridgetown::SeoTag do
   end
   let(:paginator) { { "previous_page" => true, "previous_page_path" => "foo", "next_page" => true, "next_page_path" => "bar" } }
   let(:page) do
-    make_page.yield_self do |page|
+    make_page.then do |page|
       page.paginator = paginator
       page
     end
@@ -139,7 +139,7 @@ RSpec.describe Bridgetown::SeoTag do
 
   context "with page.date" do
     let(:page) { make_page("date" => Date.new) }
-    it 'outputs open graph type article' do
+    it "outputs open graph type article" do
       expected = %r!<meta property="og:type" content="article" />!
       expect(output).to match(expected)
     end
@@ -147,7 +147,7 @@ RSpec.describe Bridgetown::SeoTag do
 
   context "without page.date" do
     let(:page) { make_page("date" => nil) }
-    it 'outputs open graph type website' do
+    it "outputs open graph type website" do
       expected = %r!<meta property="og:type" content="website" />!
       expect(output).to match(expected)
     end
@@ -191,9 +191,9 @@ RSpec.describe Bridgetown::SeoTag do
     let(:site_config) { { "url" => "http://example.invalid" } }
 
     it "uses the site url to build the seo url" do
-      expected = %r!<link rel="canonical" href="http://example.invalid/page.html" />!
+      expected = %r!<link rel="canonical" href="http://example.invalid/page/" />!
       expect(output).to match(expected)
-      expected = %r!<meta property="og:url" content="http://example.invalid/page.html" />!
+      expected = %r!<meta property="og:url" content="http://example.invalid/page/" />!
       expect(output).to match(expected)
     end
 
@@ -209,15 +209,13 @@ RSpec.describe Bridgetown::SeoTag do
       end
     end
 
-    context "with site.baseurl" do
-      let(:site_config) { { "url" => "http://example.invalid", "baseurl" => "/foo" } }
+    context "with site.base_path" do
+      let(:site_config) { { "url" => "http://example.invalid", "base_path" => "/foo" } }
 
-      it "uses baseurl to build the seo url" do
-        skip "FIXME: very strange issue with RSpec and cached site data"
-
-        expected = %r!<link rel="canonical" href="http://example.invalid/foo/page.html" />!
+      it "uses base_path to build the seo url" do
+        expected = %r!<link rel="canonical" href="http://example.invalid/foo/page/" />!
         expect(output).to match(expected)
-        expected = %r!<meta property="og:url" content="http://example.invalid/foo/page.html" />!
+        expected = %r!<meta property="og:url" content="http://example.invalid/foo/page/" />!
         expect(output).to match(expected)
       end
     end
@@ -297,8 +295,8 @@ RSpec.describe Bridgetown::SeoTag do
           <title>Foo</title>
           <meta property="og:title" content="Foo" />
           <meta property="og:locale" content="en_US" />
-          <link rel="canonical" href="http://example.invalid/page.html" />
-          <meta property="og:url" content="http://example.invalid/page.html" />
+          <link rel="canonical" href="http://example.invalid/page/" />
+          <meta property="og:url" content="http://example.invalid/page/" />
           <meta property="og:site_name" content="Foo" />
         HTML
         expect(output).to match(expected)
