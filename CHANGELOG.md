@@ -1,5 +1,12 @@
 # Changelog
 
+## 6.0.0 / 2023-01-08
+
+- Fix bug where prev/next rel links for paginated pages were missing
+- Upgrade to initializers system in Bridgetown 1.2
+- Add support for image alt metadata
+- Add fallback for og:type metadata 
+
 ## 5.0.0 / 2021-10-17
 
 - Change "Site Title | Site Tagline" format to "Site Title: Site Tagline"
