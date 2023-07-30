@@ -125,7 +125,7 @@ The SEO tag will respect the following YAML front matter if included in a post, 
 
 ### Setting a default image
 
-You can define a default image using [Front Matter defaults](https://www.bridgetownrb.com/docs/configuration/front-matter-defaults/) to provide a default Twitter Card or Open Graph image to all of your documents.
+You can define a default image using [Front Matter defaults](https://www.bridgetownrb.com/docs/content/front-matter-defaults/) to provide a default Twitter Card or Open Graph image to all of your documents.
 
 Here is a very basic example, that you are encouraged to adapt to your needs:
 
