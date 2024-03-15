@@ -501,24 +501,4 @@ RSpec.describe Bridgetown::SeoTag::Drop do
     end
   end
 
-  context "pagination" do
-    let(:context) do
-      make_context(
-        { page: page, site: site },
-        "paginator" => { "page" => 2, "total_pages" => 10 }
-      )
-    end
-
-    it "render default pagination title" do
-      expect(subject.send(:page_number)).to eq("Page 2 of 10 for ")
-    end
-
-    context "render custom pagination title" do
-      let(:site_config) { { "seo_paginator_message" => "%<current>s of %<total>s" } }
-
-      it "renders the correct page number" do
-        expect(subject.send(:page_number)).to eq("2 of 10")
-      end
-    end
-  end
 end

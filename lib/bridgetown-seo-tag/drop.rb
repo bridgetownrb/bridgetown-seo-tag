@@ -71,8 +71,6 @@ module Bridgetown
                      page_title || site_title
                    end
 
-        return page_number + @title if page_number
-
         @title
       end
 
@@ -187,16 +185,6 @@ module Bridgetown
 
       def homepage_or_about?
         page["url"] =~ HOMEPAGE_OR_ABOUT_REGEX
-      end
-
-      def page_number
-        return unless @context["paginator"] && @context["paginator"]["page"]
-
-        current = @context["paginator"]["page"]
-        total = @context["paginator"]["total_pages"]
-        paginator_message = site["seo_paginator_message"] || "Page %<current>s of %<total>s for "
-
-        format(paginator_message, current: current, total: total) if current > 1
       end
 
       attr_reader :context
