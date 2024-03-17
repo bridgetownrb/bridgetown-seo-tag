@@ -290,6 +290,7 @@ RSpec.describe Bridgetown::SeoTag do
 
       it "minifies the output" do
         version = Bridgetown::SeoTag::VERSION
+        # rubocop:disable Bridgetown/HTMLEscapedHeredoc
         expected = <<~HTML
           <!-- Begin Bridgetown SEO tag v#{version} -->
           <title>Foo</title>
@@ -299,6 +300,7 @@ RSpec.describe Bridgetown::SeoTag do
           <meta property="og:url" content="http://example.invalid/page/" />
           <meta property="og:site_name" content="Foo" />
         HTML
+        # rubocop:enable Bridgetown/HTMLEscapedHeredoc
         expect(output).to match(expected)
       end
     end
