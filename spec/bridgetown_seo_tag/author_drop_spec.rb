@@ -143,7 +143,7 @@ RSpec.describe Bridgetown::SeoTag::AuthorDrop do
     context "without an author name or handle" do
       let(:page_meta) { { "author" => { "foo" => "bar" } } }
 
-      it "dosen't blow up" do
+      it "doesn't blow up" do
         expect(subject["twitter"]).to be_nil
       end
     end

@@ -24,7 +24,7 @@ module Bridgetown
         @context = context
       end
 
-      # Called path for backwards compatability, this is really
+      # Called path for backwards compatibility, this is really
       # the escaped, absolute URL representing the page's image
       # Returns nil if no image path can be determined
       def path

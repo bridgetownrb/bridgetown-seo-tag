@@ -9,7 +9,7 @@ module Bridgetown
       # Determines if the given string is an absolute URL
       #
       # Returns true if an absolute URL.
-      # Retruns false if it's a relative URL
+      # Returns false if it's a relative URL
       # Returns nil if it is not a string or can't be parsed as a URL
       def absolute_url?(string)
         return false unless string
