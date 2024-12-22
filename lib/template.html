@@ -69,9 +69,9 @@
   <meta property="twitter:title" content="{{ seo_tag.page_title }}" />
 {% endif %}
 
-{% if site.metadata.mastodon %}
-  <meta name="fediverse:creator" content="@{{ site.metadata.mastodon.username | remove:'@' }}@{{ site.metadata.mastodon.server | remove:'https://' }}" />
-  <link rel="me" href="https://{{ site.metadata.mastodon.server | remove:'https://' }}/@{{ site.metadata.mastodon.username | remove:'@' }}" />
+{% if seo_tag.mastodon_handle %}
+  <meta name="fediverse:creator" content="{{ seo_tag.mastodon_handle }}" />
+  <link rel="me" href="{{ seo_tag.mastodon_url }}" />
 {% endif %}
 
 {% if site.metadata.twitter %}

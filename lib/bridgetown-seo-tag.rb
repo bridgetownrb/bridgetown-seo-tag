@@ -6,6 +6,7 @@ require "bridgetown-seo-tag/version"
 module Bridgetown
   class SeoTag < Liquid::Tag
     autoload :AuthorDrop, "bridgetown-seo-tag/author_drop"
+    autoload :MastodonDrop, "bridgetown-seo-tag/mastodon_drop"
     autoload :ImageDrop,  "bridgetown-seo-tag/image_drop"
     autoload :UrlHelper,  "bridgetown-seo-tag/url_helper"
     autoload :Drop,       "bridgetown-seo-tag/drop"
