@@ -55,6 +55,7 @@ Bridgetown SEO Tag adds the following meta tags to your site:
 * Canonical URL
 * Next and previous URLs on paginated pages
 * [Open Graph](https://ogp.me/) title, description, site title, and URL (for Facebook, LinkedIn, etc.)
+* Mastodon [verification](https://docs.joinmastodon.org/user/profile/#verification) and [attribution](https://blog.joinmastodon.org/2024/07/highlighting-journalism-on-mastodon/)
 * [Twitter Summary Card](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started) metadata
 
 While you could theoretically add the necessary metadata tags yourself, Bridgetown SEO Tag provides a battle-tested template of crowdsourced best-practices.
@@ -74,6 +75,8 @@ The SEO tag will respect any of the following if included in your site's `site_m
 * `tagline` - A short description (e.g., A blog dedicated to reviewing cat gifs), used in instances (like a home page) where there isn't a dedicated document title.
 * `description` - A longer description used for the description meta tag. Also used as fallback for documents that don't provide their own `description` and as part of the home page title tag if `tagline` is not defined.
 * `author` - global author information (see [Advanced usage](https://github.com/bridgetownrb/bridgetown-seo-tag/wiki/Advanced-Usage#author-information))
+
+* `mastodon` - Your Mastodon handle, to both verify your Mastodon profile, and link to your profile when someone shares your content on the network. If the page metadata contains a `mastodon` entry, it will take precedence over `site_metadata.yml`.
 
 * `twitter` - You can add a single Twitter handle to be used in Twitter card tags, like "bridgetownrb". Or you use a YAML mapping with additional details:
   * `twitter:card` - The site's default card type

@@ -100,7 +100,7 @@ module Bridgetown
       end
 
       # Returns a Drop representing the page's image
-      # Returns nil if the image has no path, to preserve backwards compatability
+      # Returns nil if the image has no path, to preserve backwards compatibility
       def image
         @image ||= ImageDrop.new(page: page, context: @context)
         @image if @image.path

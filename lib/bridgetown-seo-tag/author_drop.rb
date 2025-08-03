@@ -55,7 +55,7 @@ module Bridgetown
         @resolved_author = sources.find { |s| !s.to_s.empty? }
       end
 
-      # If resolved_author is a string, attempts to find coresponding author
+      # If resolved_author is a string, attempts to find corresponding author
       # metadata in `site.data.authors`
       #
       # Returns a hash representing additional metadata or an empty hash
