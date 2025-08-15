@@ -247,6 +247,7 @@ DEPENDENCIES
   bridgetown (= 2.0.0.beta6)
   bridgetown-seo-tag!
   bundler (>= 1.15)
+  ffi
   html-proofer (~> 3.7)
   rake (~> 13.0)
   rspec (~> 3.5)
