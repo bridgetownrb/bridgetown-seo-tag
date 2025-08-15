@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     # A drop representing the current page's author
     #
     # Author name will be pulled from:

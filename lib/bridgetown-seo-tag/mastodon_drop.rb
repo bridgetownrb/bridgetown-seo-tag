@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     # A drop representing the current page's mastodon handle
     #
     # Mastodon handle will be pulled from:
@@ -9,7 +9,7 @@ module Bridgetown
     # 1. The page's `mastodon` key
     # 2. The `mastodon` key in the site config
     class MastodonDrop < Bridgetown::Drops::Drop
-      HANDLE_REGEX = /\A@?(?<username>[^@]+)@(?<server>[^@]+)\z/
+      HANDLE_REGEX = %r{\A@?(?<username>[^@]+)@(?<server>[^@]+)\z}
 
       # Initialize a new MastodonDrop
       #
@@ -34,7 +34,7 @@ module Bridgetown
 
       # Make the drop behave like a hash
       def [](key)
-        return mastodon_handle if key.to_sym == :mastodon
+        mastodon_handle if key.to_sym == :mastodon
       end
 
       private

@@ -1,7 +1,6 @@
 *.gem
 .bundle
 .yardoc
-Gemfile.lock
 pkg
 spec/reports/
 spec/fixtures/.bridgetown-cache

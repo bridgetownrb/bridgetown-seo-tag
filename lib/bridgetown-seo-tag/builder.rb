@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     class Builder < Bridgetown::Builder
       def build
         helper "seo" do |title: true|

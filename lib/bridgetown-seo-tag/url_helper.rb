@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     # Mixin to share common URL-related methods between class
     module UrlHelper
       private

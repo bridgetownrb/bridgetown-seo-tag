@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Bridgetown::SeoTag do
+RSpec.describe Bridgetown::SeoTag::LiquidTag do
   let(:site_config) { {} }
   let(:metadata_config) { { "title" => "site title" } }
   let(:page_meta) { {} }
@@ -47,7 +47,7 @@ RSpec.describe Bridgetown::SeoTag do
   end
 
   it "renders" do
-    expected = "<!-- Begin Bridgetown SEO tag v#{described_class::VERSION} -->"
+    expected = "<!-- Begin Bridgetown SEO tag v#{Bridgetown::SeoTag::VERSION} -->"
     expect(rendered).to match(expected)
   end
 end

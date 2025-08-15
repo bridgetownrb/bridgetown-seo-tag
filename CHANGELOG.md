@@ -1,5 +1,13 @@
 # Changelog
 
+## 7.0.0 / 2025-08-15
+
+- Add support for Bridgetown 2.0
+  - minimum requirement of Ruby 3.1
+- Refactor internals so `Bridgetown::SeoTag` is a module, with a `LiquidTag` class inside
+- Add GH workflow and fix failing items (@jclusso)
+- Parse Mastodon handle to add attribution and verification metadata (@goulvench)
+
 ## 6.0.0 / 2023-01-08
 
 - Fix bug where prev/next rel links for paginated pages were missing

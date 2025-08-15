@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     # A drop representing the page image
     # The image path will be pulled from:
     #

@@ -11,6 +11,8 @@ Bridgetown::Site # resolve weird autoload issue
 require "bridgetown-seo-tag"
 require "html-proofer"
 
+using Bridgetown::Refinements
+
 # Monkey patch Bridgetown::Drops::Drop so Rspec's `have_key` works as expected
 module Bridgetown
   module Drops
@@ -42,7 +44,7 @@ CONFIG_DEFAULTS = {
 
 def make_page(options = {})
   page = Bridgetown::GeneratedPage.new site, CONFIG_DEFAULTS["source"], "", "page.md"
-  page.data = options.with_dot_access
+  page.data = options.as_dots
   page
 end
 

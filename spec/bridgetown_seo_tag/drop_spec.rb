@@ -500,5 +500,4 @@ RSpec.describe Bridgetown::SeoTag::Drop do
       end
     end
   end
-
 end

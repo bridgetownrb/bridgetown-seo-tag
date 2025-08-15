@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "bridgetown", ENV["BRIDGETOWN_VERSION"] if ENV["BRIDGETOWN_VERSION"]
+gem "bridgetown", "2.0.0.beta6"
 gem "bundler", ">= 1.15"
 gem "html-proofer", "~> 3.7"
 gem "rake", "~> 13.0"

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Bridgetown
-  class SeoTag
+  module SeoTag
     class Drop < Bridgetown::Drops::Drop
       include Bridgetown::SeoTag::UrlHelper
 
@@ -10,7 +10,7 @@ module Bridgetown
       FORMAT_STRING_METHODS = [
         :markdownify, :strip_html, :normalize_whitespace, :escape_once,
       ].freeze
-      HOMEPAGE_OR_ABOUT_REGEX = %r!^/(about/)?(index.html?)?$!.freeze
+      HOMEPAGE_OR_ABOUT_REGEX = %r!^/(about/)?(index.html?)?$!
 
       def initialize(text, context)
         @obj = {}
