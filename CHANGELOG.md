@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.1 / 2025/10-26
+
+- Remove `blank?` and `present?` references which aren't available once Active Support is removed as a Bridgetown dependency
+
 ## 7.0.0 / 2025-08-15
 
 - Add support for Bridgetown 2.0

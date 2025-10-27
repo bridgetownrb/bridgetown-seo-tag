@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem "bridgetown", "2.0.0.beta6"
+gem "bridgetown", "2.0.3"
 gem "bundler", ">= 1.15"
 gem "ffi"
 gem "html-proofer", "~> 5.0"

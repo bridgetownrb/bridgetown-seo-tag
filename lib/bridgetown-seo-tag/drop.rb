@@ -49,7 +49,7 @@ module Bridgetown
       # Page title without site title or description appended
       def page_title
         @page_title ||= format_string(
-          if (page["title"] == "Index" || page["title"].blank?) &&
+          if (page["title"] == "Index" || page["title"].to_s.empty?) &&
               site_tagline_or_description
             "#{site_title}#{TAGLINE_SEPARATOR}#{site_tagline_or_description}"
           else
@@ -157,10 +157,10 @@ module Bridgetown
         @page_lang ||= page["lang"] || site["lang"] || "en_US"
       end
 
-      def canonical_url
-        @canonical_url ||= if page["canonical_url"].to_s.present?
+      def canonical_url # rubocop:todo Metrics/AbcSize
+        @canonical_url ||= if page["canonical_url"].to_s.length.positive?
                              page["canonical_url"]
-                           elsif page["url"].to_s.present?
+                           elsif page["url"].to_s.length.positive?
                              filters.absolute_url(page["url"]).to_s.gsub(%r!/index\.html$!, "/")
                            else
                              filters.absolute_url(page["relative_url"]).to_s.gsub(
