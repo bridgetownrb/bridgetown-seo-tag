@@ -123,6 +123,10 @@ module Bridgetown
         @date_published ||= filters.date_to_xmlschema(page["date"]) if page["date"]
       end
 
+      def og_type
+        @og_type ||= page_seo["og_type"] || (post? ? "article" : "website")
+      end
+
       def type
         @type ||= if page_seo["type"]
                     page_seo["type"]
@@ -185,6 +189,11 @@ module Bridgetown
 
       def homepage_or_about?
         page["url"] =~ HOMEPAGE_OR_ABOUT_REGEX
+      end
+
+      def post?
+        raw_page = @context.registers[:page]
+        raw_page.respond_to?(:collection) && raw_page.collection&.label == "posts"
       end
 
       attr_reader :context

@@ -137,10 +137,10 @@ RSpec.describe Bridgetown::SeoTag do
     end
   end
 
-  context "with page.date" do
+  context "with page.date but not a post" do
     let(:page) { make_page("date" => Date.new) }
-    it "outputs open graph type article" do
-      expected = %r!<meta property="og:type" content="article" />!
+    it "outputs open graph type website" do
+      expected = %r!<meta property="og:type" content="website" />!
       expect(output).to match(expected)
     end
   end
@@ -149,6 +149,26 @@ RSpec.describe Bridgetown::SeoTag do
     let(:page) { make_page("date" => nil) }
     it "outputs open graph type website" do
       expected = %r!<meta property="og:type" content="website" />!
+      expect(output).to match(expected)
+    end
+  end
+
+  context "with seo.og_type set in front matter" do
+    let(:page) { make_page("date" => Date.new, "seo" => { "og_type" => "article" }) }
+    it "uses the og_type from front matter" do
+      expected = %r!<meta property="og:type" content="article" />!
+      expect(output).to match(expected)
+    end
+
+    it "outputs article:published_time when og_type is article" do
+      expect(output).to match(%r!article:published_time!)
+    end
+  end
+
+  context "with seo.og_type set to a custom type" do
+    let(:page) { make_page("seo" => { "og_type" => "product" }) }
+    it "uses the custom og_type" do
+      expected = %r!<meta property="og:type" content="product" />!
       expect(output).to match(expected)
     end
   end
@@ -319,7 +339,7 @@ RSpec.describe Bridgetown::SeoTag do
       let(:page) { make_post(meta) }
       let(:context) { make_context(page: page, site: site) }
 
-      it "outputs post meta" do
+      it "defaults to og:type article for posts" do
         expected = %r!<meta property="og:type" content="article" />!
         expect(output).to match(expected)
       end
